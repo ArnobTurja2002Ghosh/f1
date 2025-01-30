@@ -4,7 +4,7 @@ import 'package:hotel_and_travel_booking_app/constant/app_colors.dart';
 import 'constant/app_text.dart';
 
 class SearchedScreen extends StatefulWidget {
-  const SearchedScreen({super.key});
+  SearchedScreen({super.key});
 
   @override
   State<SearchedScreen> createState() => _SearchedScreenState();
@@ -12,9 +12,24 @@ class SearchedScreen extends StatefulWidget {
 
 class _SearchedScreenState extends State<SearchedScreen>
     with TickerProviderStateMixin {
+  late int selectedTab;
+  late TabController tabController;
+  bool isSelected = false;
+  @override
+  void initState() {
+    // TODO: implement initState
+    selectedTab = 0;
+    tabController = TabController(length: 3, vsync: this);
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    TabController tabController = TabController(length: 3, vsync: this);
+    tabController.addListener(() {
+      setState(() {});
+      print("new state");
+    });
     return Scaffold(
       body: Column(
         children: [
@@ -31,30 +46,31 @@ class _SearchedScreenState extends State<SearchedScreen>
               children: [
                 Column(
                   children: [
-                    SizedBox(
-                      height: 30,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        InkWell(
-                          onTap: () {
-                            Navigator.pop(context);
-                          },
-                          child: Icon(
-                            Icons.arrow_back,
-                            color: Colors.white,
-                            size: 30,
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 30, horizontal: 20),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          InkWell(
+                            onTap: () {
+                              Navigator.pop(context);
+                            },
+                            child: Icon(
+                              Icons.arrow_back,
+                              color: Colors.white,
+                              size: 30,
+                            ),
                           ),
-                        ),
-                        Row(
-                          children: [
-                            Icon(Icons.share, color: Colors.white, size: 30),
-                            Icon(Icons.favorite_outline,
-                                color: Colors.white, size: 30),
-                          ],
-                        )
-                      ],
+                          Row(
+                            children: [
+                              Icon(Icons.share, color: Colors.white, size: 30),
+                              Icon(Icons.favorite_outline,
+                                  color: Colors.white, size: 30),
+                            ],
+                          )
+                        ],
+                      ),
                     ),
                   ],
                 ),
@@ -103,14 +119,22 @@ class _SearchedScreenState extends State<SearchedScreen>
                           color: Color(AppColors.indicatorColor),
                           borderRadius: BorderRadius.circular(100),
                         ),
+                        // onTap: (int1) {
+                        //   setState(() {
+                        //     selectedTab = int1;
+                        //   });
+                        //   print(selectedTab);
+                        // },
                         tabs: <Widget>[
                           Tab(
                             child: Container(
                               height: 40,
                               width: 100,
                               decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(100),
-                              ),
+                                  borderRadius: BorderRadius.circular(100),
+                                  color: tabController.index == 0
+                                      ? null
+                                      : Colors.white),
                               child: Center(child: Text("Hotels")),
                             ),
                           ),
@@ -120,7 +144,9 @@ class _SearchedScreenState extends State<SearchedScreen>
                               width: 100,
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(100),
-                                  color: Colors.white),
+                                  color: tabController.index == 1
+                                      ? null
+                                      : Colors.white),
                               child: Center(child: Text("Foods")),
                             ),
                           ),
@@ -129,8 +155,10 @@ class _SearchedScreenState extends State<SearchedScreen>
                               height: 40,
                               width: 100,
                               decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(100),
-                              ),
+                                  borderRadius: BorderRadius.circular(100),
+                                  color: tabController.index == 2
+                                      ? null
+                                      : Colors.white),
                               child: Center(child: Text("Activities")),
                             ),
                           ),
@@ -185,7 +213,11 @@ class _SearchedScreenState extends State<SearchedScreen>
                                         ),
                                       ],
                                     ),
-                                    Text("DETAILS"),
+                                    Text("DETAILS",
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.w500)),
                                     Text(
                                       AppText.text1,
                                       style: TextStyle(
@@ -193,29 +225,7 @@ class _SearchedScreenState extends State<SearchedScreen>
                                       overflow: TextOverflow.ellipsis,
                                       maxLines: 3,
                                     ),
-                                    Center(
-                                      child: Container(
-                                          height: 40,
-                                          width: 150,
-                                          decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(100),
-                                              color: Color(0xFF18C0C1)),
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Text(
-                                                "Continue",
-                                                style: TextStyle(
-                                                    fontSize: 15,
-                                                    color: Colors.white),
-                                              ),
-                                              Icon(Icons.arrow_forward,
-                                                  color: Colors.white)
-                                            ],
-                                          )),
-                                    ),
+                                    ContinueButton()
                                   ],
                                 ),
                               ),
@@ -262,7 +272,11 @@ class _SearchedScreenState extends State<SearchedScreen>
                                         ),
                                       ],
                                     ),
-                                    Text("DETAILS"),
+                                    Text("DETAILS",
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.w500)),
                                     Text(
                                       AppText.text2,
                                       style: TextStyle(
@@ -270,29 +284,7 @@ class _SearchedScreenState extends State<SearchedScreen>
                                       overflow: TextOverflow.ellipsis,
                                       maxLines: 3,
                                     ),
-                                    Center(
-                                      child: Container(
-                                          height: 40,
-                                          width: 150,
-                                          decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(100),
-                                              color: Color(0xFF18C0C1)),
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Text(
-                                                "Continue",
-                                                style: TextStyle(
-                                                    fontSize: 15,
-                                                    color: Colors.white),
-                                              ),
-                                              Icon(Icons.arrow_forward,
-                                                  color: Colors.white)
-                                            ],
-                                          )),
-                                    ),
+                                    ContinueButton(),
                                   ],
                                 ),
                               ),
@@ -339,7 +331,11 @@ class _SearchedScreenState extends State<SearchedScreen>
                                         ),
                                       ],
                                     ),
-                                    Text("DETAILS"),
+                                    Text("DETAILS",
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.w500)),
                                     Text(
                                       AppText.text3,
                                       style: TextStyle(
@@ -347,29 +343,7 @@ class _SearchedScreenState extends State<SearchedScreen>
                                       overflow: TextOverflow.ellipsis,
                                       maxLines: 3,
                                     ),
-                                    Center(
-                                      child: Container(
-                                          height: 40,
-                                          width: 150,
-                                          decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(100),
-                                              color: Color(0xFF18C0C1)),
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Text(
-                                                "Continue",
-                                                style: TextStyle(
-                                                    fontSize: 15,
-                                                    color: Colors.white),
-                                              ),
-                                              Icon(Icons.arrow_forward,
-                                                  color: Colors.white)
-                                            ],
-                                          )),
-                                    ),
+                                    ContinueButton()
                                   ],
                                 ),
                               ),
@@ -386,5 +360,35 @@ class _SearchedScreenState extends State<SearchedScreen>
         ],
       ),
     );
+  }
+}
+
+class ContinueButton extends StatelessWidget {
+  const ContinueButton({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+        padding: EdgeInsets.symmetric(vertical: 20),
+        child: Center(
+          child: Container(
+              height: 40,
+              width: 150,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(100),
+                  color: Color(0xFF18C0C1)),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "Continue",
+                    style: TextStyle(fontSize: 15, color: Colors.white),
+                  ),
+                  Icon(Icons.arrow_forward, color: Colors.white)
+                ],
+              )),
+        ));
   }
 }
