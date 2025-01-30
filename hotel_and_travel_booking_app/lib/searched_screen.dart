@@ -12,15 +12,12 @@ class SearchedScreen extends StatefulWidget {
 
 class _SearchedScreenState extends State<SearchedScreen>
     with TickerProviderStateMixin {
-  late int selectedTab;
   late TabController tabController;
   bool isSelected = false;
   @override
   void initState() {
     // TODO: implement initState
-    selectedTab = 0;
     tabController = TabController(length: 3, vsync: this);
-
     super.initState();
   }
 
