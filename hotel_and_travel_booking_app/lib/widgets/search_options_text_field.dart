@@ -44,8 +44,8 @@ class SearchOptionsTextField extends StatelessWidget {
               ],
             ),
             Container(
-              height: 24,
-              width: 24,
+              height: 44,
+              width: 44,
               decoration: BoxDecoration(
                 image: DecorationImage(
                   image: AssetImage(actionImage ?? ""),
