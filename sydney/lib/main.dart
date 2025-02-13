@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'app_text.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -91,9 +93,8 @@ class _MyHomePageState extends State<MyHomePage> {
           //width: MediaQuery.of(context).size.width,
           decoration: BoxDecoration(
               image: DecorationImage(
-                  fit: BoxFit.fitHeight,
-                  image: NetworkImage(
-                      "https://images.unsplash.com/photo-1549180030-48bf079fb38a?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8c3lkbmV5fGVufDB8fDB8fHww"))),
+                  fit: BoxFit.fitWidth,
+                  image: AssetImage("assets/images/photo.jpg"))),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -153,83 +154,208 @@ class SearchedScreen extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Container(
-                width: MediaQuery.of(context).size.width / 2,
-                height: MediaQuery.of(context).size.height / 3,
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                        fit: BoxFit.fitHeight,
-                        image: NetworkImage(
-                            "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/11/38/6c/09/20171001-141954-largejpg.jpg"))),
-                child: Text(
-                  "adventure enthusiasts",
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 30,
-                      backgroundColor: Color(0x99000000)),
-                  textAlign: TextAlign.center,
-                ),
-              ),
-              Container(
+              InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => AdventureScreen(
+                        images: AppText.adventureImages,
+                        textBodies: AppText.adventureTexts,
+                        textTitles: AppText.adventureTitles,
+                        appBarTitle: "Adventure Enthusiasts",
+                      ),
+                    ),
+                  );
+                },
+                child: Container(
                   width: MediaQuery.of(context).size.width / 2,
                   height: MediaQuery.of(context).size.height / 3,
                   decoration: BoxDecoration(
                       image: DecorationImage(
                           fit: BoxFit.fitHeight,
-                          image: NetworkImage(
-                              "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjbyzPdkSVkTsfgMLns31uveOJxhSJ5I4Xyt_ZgaZQb9M-JHTgatZ-TKfMlx7W_CmrfdS1oQQFSqpWhmzvxoV5H2efclQE-DPwxdsXrtFnexcko7pkn1zsHcVYxV50E3PLkUhfqtLfrlI0g/s400/DSC00201+%25286%2529.JPG"))),
+                          image: AssetImage("assets/images/NSW.webp"))),
+                  alignment: Alignment(0, 0),
                   child: Text(
-                    "culinary seekers",
+                    "adventure enthusiasts",
                     style: TextStyle(
                         color: Colors.white,
                         fontSize: 30,
                         backgroundColor: Color(0x99000000)),
                     textAlign: TextAlign.center,
-                  ))
+                  ),
+                ),
+              ),
+              InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => AdventureScreen(
+                        images: AppTexts.adventureImages,
+                        textBodies: AppTexts.adventureTexts,
+                        textTitles: AppTexts.adventureTitles,
+                        appBarTitle: "Culinary Seekers",
+                      ),
+                    ),
+                  );
+                },
+                child: Container(
+                    width: MediaQuery.of(context).size.width / 2,
+                    height: MediaQuery.of(context).size.height / 3,
+                    decoration: BoxDecoration(
+                        image: DecorationImage(
+                            fit: BoxFit.fitHeight,
+                            image: AssetImage("assets/images/sw.jpg"))),
+                    alignment: Alignment(0, 0),
+                    child: Text(
+                      "culinary seekers",
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 30,
+                          backgroundColor: Color(0x99000000)),
+                      textAlign: TextAlign.center,
+                    )),
+              )
             ],
           ),
           Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Container(
-                width: MediaQuery.of(context).size.width / 2,
-                height: MediaQuery.of(context).size.height / 3,
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                        fit: BoxFit.fitHeight,
-                        image: NetworkImage(
-                            "https://www.historyhit.com/app/uploads/2020/11/Bennelong-Point.jpg"))),
-                child: Text(
-                  "history aficionados",
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 30,
-                      backgroundColor: Color(0x99000000)),
-                  textAlign: TextAlign.center,
-                ),
-              ),
-              Container(
+              InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => AdventureScreen(
+                        images: AppTextss.adventureImages,
+                        textBodies: AppTextss.adventureTexts,
+                        textTitles: AppTextss.adventureTitles,
+                        appBarTitle: "History Aficionados",
+                      ),
+                    ),
+                  );
+                },
+                child: Container(
                   width: MediaQuery.of(context).size.width / 2,
                   height: MediaQuery.of(context).size.height / 3,
                   decoration: BoxDecoration(
                       image: DecorationImage(
                           fit: BoxFit.fitHeight,
-                          image: NetworkImage(
-                              "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/13/47/12/e1/lord-nelson-hotel-brewery.jpg?w=900&h=500&s=1"))),
+                          image: AssetImage("assets/images/174449-2.webp"))),
+                  alignment: Alignment(0, 0),
                   child: Text(
-                    "nightlife revelers",
+                    "history aficionados",
                     style: TextStyle(
                         color: Colors.white,
                         fontSize: 30,
                         backgroundColor: Color(0x99000000)),
                     textAlign: TextAlign.center,
-                  ))
+                  ),
+                ),
+              ),
+              InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => AdventureScreen(
+                        images: AppTextsss.adventureImages,
+                        textBodies: AppTextsss.adventureTexts,
+                        textTitles: AppTextsss.adventureTitles,
+                        appBarTitle: "Nightlife Revelers",
+                      ),
+                    ),
+                  );
+                },
+                child: Container(
+                    width: MediaQuery.of(context).size.width / 2,
+                    height: MediaQuery.of(context).size.height / 3,
+                    decoration: BoxDecoration(
+                        image: DecorationImage(
+                            fit: BoxFit.fitHeight,
+                            image: AssetImage(
+                                "assets/images/lord-nelson-hotel-brewery.jpg"))),
+                    alignment: Alignment(0, 0),
+                    child: Text(
+                      "nightlife revelers",
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 30,
+                          backgroundColor: Color(0x99000000)),
+                      textAlign: TextAlign.center,
+                    )),
+              )
             ],
           )
         ],
       ),
+    );
+  }
+}
+
+class AdventureScreen extends StatelessWidget {
+  final String appBarTitle;
+  final List<String> images, textTitles, textBodies;
+  const AdventureScreen(
+      {super.key,
+      required this.appBarTitle,
+      required this.images,
+      required this.textTitles,
+      required this.textBodies});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          appBarTitle,
+          style: TextStyle(color: Colors.white),
+        ),
+        iconTheme: IconThemeData(color: Colors.white),
+        backgroundColor: Colors.teal,
+      ),
+      body: ListView.builder(
+          itemCount: 3,
+          itemBuilder: (BuildContext context, int index) {
+            return Container(
+              color: Colors.tealAccent,
+              child: Column(
+                children: [
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.9,
+                    height: MediaQuery.of(context).size.height / 2,
+                    decoration: BoxDecoration(
+                        image: DecorationImage(
+                            alignment: Alignment.bottomCenter,
+                            image:
+                                AssetImage("assets/images/${images[index]}"))),
+                  ),
+                  Container(
+                    color: Colors.white,
+                    width: MediaQuery.of(context).size.width * 0.9,
+                    child: Padding(
+                      padding: const EdgeInsets.all(9.0),
+                      child: Column(
+                        children: [
+                          Text(
+                            textTitles[index],
+                            style: TextStyle(fontSize: 25),
+                          ),
+                          Text(
+                            textBodies[index],
+                            style: TextStyle(fontSize: 15),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            );
+          }),
     );
   }
 }
