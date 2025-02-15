@@ -178,13 +178,18 @@ class SearchedScreen extends StatelessWidget {
                           fit: BoxFit.fitHeight,
                           image: AssetImage("assets/images/NSW.webp"))),
                   alignment: Alignment(0, 0),
-                  child: Text(
-                    "adventure enthusiasts",
-                    style: TextStyle(
+                  child: Container(
+                    width: MediaQuery.of(context).size.width * 0.4,
+                    color: Color(0x99000000),
+                    child: Text(
+                      "adventure enthusiasts",
+                      style: TextStyle(
                         color: Colors.white,
                         fontSize: 30,
-                        backgroundColor: Color(0x99000000)),
-                    textAlign: TextAlign.center,
+                        //backgroundColor: Color(0x99000000),
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
                   ),
                 ),
               ),
@@ -210,13 +215,18 @@ class SearchedScreen extends StatelessWidget {
                             fit: BoxFit.fitHeight,
                             image: AssetImage("assets/images/sw.jpg"))),
                     alignment: Alignment(0, 0),
-                    child: Text(
-                      "culinary seekers",
-                      style: TextStyle(
+                    child: Container(
+                      color: Color(0x99000000),
+                      width: MediaQuery.of(context).size.width * 0.4,
+                      child: Text(
+                        "culinary seekers",
+                        style: TextStyle(
                           color: Colors.white,
                           fontSize: 30,
-                          backgroundColor: Color(0x99000000)),
-                      textAlign: TextAlign.center,
+                          //backgroundColor: Color(0x99000000),
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
                     )),
               )
             ],
@@ -246,13 +256,18 @@ class SearchedScreen extends StatelessWidget {
                           fit: BoxFit.fitHeight,
                           image: AssetImage("assets/images/174449-2.webp"))),
                   alignment: Alignment(0, 0),
-                  child: Text(
-                    "history aficionados",
-                    style: TextStyle(
+                  child: Container(
+                    color: Color(0x99000000),
+                    width: MediaQuery.of(context).size.width * 0.4,
+                    child: Text(
+                      "history aficionados",
+                      style: TextStyle(
                         color: Colors.white,
                         fontSize: 30,
-                        backgroundColor: Color(0x99000000)),
-                    textAlign: TextAlign.center,
+                        //backgroundColor: Color(0x99000000),
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
                   ),
                 ),
               ),
@@ -279,13 +294,18 @@ class SearchedScreen extends StatelessWidget {
                             image: AssetImage(
                                 "assets/images/lord-nelson-hotel-brewery.jpg"))),
                     alignment: Alignment(0, 0),
-                    child: Text(
-                      "nightlife revelers",
-                      style: TextStyle(
+                    child: Container(
+                      color: Color(0x99000000),
+                      width: MediaQuery.of(context).size.width * 0.4,
+                      child: Text(
+                        "nightlife revelers",
+                        style: TextStyle(
                           color: Colors.white,
                           fontSize: 30,
-                          backgroundColor: Color(0x99000000)),
-                      textAlign: TextAlign.center,
+                          //backgroundColor: Color(0x99000000),
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
                     )),
               )
             ],

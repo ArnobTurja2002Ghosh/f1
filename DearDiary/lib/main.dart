@@ -64,7 +64,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
   final CarController carController = CarController();
   void _incrementCounter() {
     setState(() {
@@ -73,7 +72,6 @@ class _MyHomePageState extends State<MyHomePage> {
       // so that the display can reflect the updated values. If we changed
       // _counter without calling setState(), then the build method would not be
       // called again, and so nothing would appear to happen.
-      _counter++;
     });
   }
 
@@ -86,6 +84,8 @@ class _MyHomePageState extends State<MyHomePage> {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
     var cars = carController.getAllCars();
+    cars.sort(
+        (a, b) => DateTime.parse(b.date).compareTo(DateTime.parse(a.date)));
     List<Icon> _star(double count2) {
       return List.generate(
           5,
@@ -96,6 +96,7 @@ class _MyHomePageState extends State<MyHomePage> {
     }
 
     List<String> monthsInAYear = [
+      '',
       "January",
       "February",
       "March",
@@ -108,6 +109,16 @@ class _MyHomePageState extends State<MyHomePage> {
       "October",
       "November",
       "December"
+    ];
+    List<String> daysInAWeek = [
+      '',
+      'Monday',
+      'Tuesday',
+      'Wednesday',
+      'Thursday',
+      'Friday',
+      'Saturday',
+      'Sunday'
     ];
     return Scaffold(
       appBar: AppBar(
@@ -127,7 +138,9 @@ class _MyHomePageState extends State<MyHomePage> {
                       context,
                       MaterialPageRoute(
                         builder: (context) => EntryView(),
-                      ));
+                      )).then((val) {
+                    setState(() {});
+                  });
                 },
                 child: Text("+"))
           ],
@@ -136,6 +149,7 @@ class _MyHomePageState extends State<MyHomePage> {
       body: ListView.builder(
         itemCount: cars.length,
         itemBuilder: (context, index) {
+          print("inserting $index");
           var car = cars[index];
           return ListTile(
             title: Column(children: () {
@@ -143,14 +157,35 @@ class _MyHomePageState extends State<MyHomePage> {
                 if (index == 0 ||
                     DateTime.parse(car.date).month !=
                         DateTime.parse(cars[index - 1].date).month)
-                  Text(monthsInAYear[DateTime.parse(car.date).month]),
+                  Text(
+                      '${monthsInAYear[DateTime.parse(car.date).month]} ${DateTime.parse(car.date).year}'),
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Text(
-                        "${car.description} ${car.rate} ${monthsInAYear[DateTime.parse(car.date).month]} ${DateTime.parse(car.date).day}"),
+                        "${daysInAWeek[DateTime.parse(car.date).weekday]}, ${monthsInAYear[DateTime.parse(car.date).month]} ${DateTime.parse(car.date).day}"),
                     Row(children: _star(car.rate)),
+                    IconButton(
+                      icon: Icon(Icons.delete),
+                      onPressed: () {
+                        for (int i = 0;
+                            i < carController.getAllCars().length;
+                            i++) {
+                          if (carController.getAllCars()[i] == car) {
+                            print(i);
+                            setState(() {
+                              carController.deleteCar(i);
+                            });
+                          }
+                        }
+                      },
+                    ),
                   ],
                 ),
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: Text("${car.description}"),
+                )
               ];
             }()),
           );
@@ -218,7 +253,8 @@ class EntryView extends StatefulWidget {
 
 class _EntryViewState extends State<EntryView> {
   double _currentSliderValue = 3;
-  TextEditingController _dateController = TextEditingController();
+  final TextEditingController _dateController = TextEditingController();
+  final TextEditingController _descriptionController = TextEditingController();
   final CarController carController = CarController();
   @override
   Widget build(BuildContext context) {
@@ -233,6 +269,7 @@ class _EntryViewState extends State<EntryView> {
           Text("Description"),
           TextField(
             maxLength: 140,
+            controller: _descriptionController,
             decoration: InputDecoration(
                 helperText: "Describe your day in 140 characters"),
           ),
@@ -253,12 +290,17 @@ class _EntryViewState extends State<EntryView> {
           ),
           TextField(
             controller: _dateController,
-            decoration: const InputDecoration(
+            style: TextStyle(
+                color: _dateController.text == 'required'
+                    ? Colors.red
+                    : Colors.black),
+            decoration: InputDecoration(
               //filled: true,
               prefixText: "Date: ",
-              suffixIcon: Icon(Icons.calendar_today),
-              enabledBorder: OutlineInputBorder(borderSide: BorderSide.none),
-              focusedBorder: OutlineInputBorder(
+              suffixIcon: const Icon(Icons.calendar_today),
+              enabledBorder:
+                  const OutlineInputBorder(borderSide: BorderSide.none),
+              focusedBorder: const OutlineInputBorder(
                   borderSide: BorderSide(color: Colors.blue)),
             ),
             readOnly: true,
@@ -269,12 +311,25 @@ class _EntryViewState extends State<EntryView> {
           ElevatedButton(
               onPressed: () {
                 var car = CarModel(
-                  //description: makeController.text,
+                  description: _descriptionController.text,
                   rate: _currentSliderValue,
                   date: _dateController.text,
                 );
-                carController.addCar(car);
-                print("hopefully added ");
+                if (DateTime.tryParse(car.date) == null) {
+                  setState(() {
+                    _dateController.text = "required";
+                  });
+                } else if (_descriptionController.text == "") {
+                  setState(() {
+                    _descriptionController.text = "null description";
+                  });
+                } else {
+                  setState(() {
+                    carController.addCar(car);
+                    Navigator.pop(context);
+                  });
+                  print("hopefully added ");
+                }
               },
               child: Text("Save Entry"))
         ],

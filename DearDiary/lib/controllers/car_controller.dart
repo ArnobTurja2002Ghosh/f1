@@ -1,4 +1,5 @@
 import 'package:hive/hive.dart';
+
 import '../models/car_model.dart';
 
 class CarController {
@@ -12,8 +13,9 @@ class CarController {
     box.putAt(index, car);
   }
 
-  void deleteCar(int index) {
-    box.deleteAt(index);
+  Future<void> deleteCar(int index) async {
+    await box.deleteAt(index);
+    await box.compact();
   }
 
   List<CarModel> getAllCars() {

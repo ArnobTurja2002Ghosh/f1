@@ -16,6 +16,8 @@ class CarModelAdapter extends TypeAdapter<CarModel> {
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
+    print(fields);
+
     return CarModel(
       description: fields[0] as String,
       rate: fields[1] as double,
