@@ -108,27 +108,54 @@ class _MyHomePageState extends State<MyHomePage> {
                   textAlign: TextAlign.center,
                 ),
               ),
-              InkWell(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => SearchedScreen(),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  InkWell(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => SearchedScreen(),
+                        ),
+                      );
+                    },
+                    child: Container(
+                      height: 50,
+                      width: 120,
+                      decoration: BoxDecoration(
+                          //borderRadius: BorderRadius.circular(10),
+                          color: Colors.teal),
+                      child: Center(
+                          child: Text(
+                        "Explore",
+                        style: TextStyle(fontSize: 30, color: Colors.white),
+                      )),
                     ),
-                  );
-                },
-                child: Container(
-                  height: 50,
-                  width: 300,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Colors.teal),
-                  child: Center(
-                      child: Text(
-                    "Explore itineraries",
-                    style: TextStyle(fontSize: 30, color: Colors.white),
-                  )),
-                ),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => Aditya(),
+                        ),
+                      );
+                    },
+                    child: Container(
+                      height: 50,
+                      width: 150,
+                      decoration: BoxDecoration(
+                          //borderRadius: BorderRadius.circular(10),
+                          color: Colors.teal),
+                      child: Center(
+                          child: Text(
+                        "itineraries",
+                        style: TextStyle(fontSize: 30, color: Colors.white),
+                      )),
+                    ),
+                  )
+                ],
               )
             ],
           )),
@@ -346,7 +373,7 @@ class AdventureScreen extends StatelessWidget {
                 children: [
                   Container(
                     width: MediaQuery.of(context).size.width * 0.9,
-                    height: MediaQuery.of(context).size.height / 2,
+                    height: MediaQuery.of(context).size.height / 3,
                     decoration: BoxDecoration(
                         image: DecorationImage(
                             alignment: Alignment.bottomCenter,
@@ -366,7 +393,7 @@ class AdventureScreen extends StatelessWidget {
                           ),
                           Text(
                             textBodies[index],
-                            style: TextStyle(fontSize: 15),
+                            style: TextStyle(fontSize: 20),
                           ),
                         ],
                       ),
@@ -376,6 +403,85 @@ class AdventureScreen extends StatelessWidget {
               ),
             );
           }),
+    );
+  }
+}
+
+class Aditya extends StatelessWidget {
+  const Aditya({super.key});
+  Widget createItem(String text, String image, BuildContext context, List l1) {
+    final TextTheme textTheme = Theme.of(context).textTheme;
+    return Scaffold(
+      body: InkWell(
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => AdventureScreen(
+                images: l1[0],
+                textBodies: l1[1],
+                textTitles: l1[2],
+                appBarTitle: l1[3],
+              ),
+            ),
+          );
+        },
+        child: Container(
+          //width: MediaQuery.of(context).size.width / 2,
+          //height: MediaQuery.of(context).size.height / 3,
+          decoration: BoxDecoration(
+              image: DecorationImage(
+                  fit: BoxFit.fitHeight,
+                  image: AssetImage("assets/images/$image"))),
+          alignment: Alignment(0, 0),
+          child: Container(
+            width: MediaQuery.of(context).size.width * 0.4,
+            color: Color(0x99000000),
+            child: Text(
+              text,
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 30,
+                //backgroundColor: Color(0x99000000),
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return PageView(
+      children: <Widget>[
+        createItem('adventure enthusiasts', "NSW.webp", context, [
+          AppText.adventureImages,
+          AppText.adventureTexts,
+          AppText.adventureTitles,
+          "Adventure Enthusiasts"
+        ]),
+        createItem('culinary seekers', "sw.jpg", context, [
+          AppTexts.adventureImages,
+          AppTexts.adventureTexts,
+          AppTexts.adventureTitles,
+          "Culinary Seekers"
+        ]),
+        createItem('history aficionados', "174449-2.webp", context, [
+          AppTextss.adventureImages,
+          AppTextss.adventureTexts,
+          AppTextss.adventureTitles,
+          "History Aficionados"
+        ]),
+        createItem(
+            'nightlife revelers', "lord-nelson-hotel-brewery.jpg", context, [
+          AppTextsss.adventureImages,
+          AppTextsss.adventureTexts,
+          AppTextsss.adventureTitles,
+          "Nightlife Revelers"
+        ])
+      ],
     );
   }
 }

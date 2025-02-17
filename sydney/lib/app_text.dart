@@ -54,20 +54,20 @@ class AppTextss {
 }
 
 class AppTextsss {
-  // all texts and images in this class taken from sydney.com
+  // https://www.thrillist.com/travel/nation/sydney-australia-nightlife-guide
   static const String text1 =
-      "Situated right by the water's edge, Opera Bar reflects the spirit of Sydney, relaxed and stylish with a sunny disposition."
-      "Be swept away by the panoramic views of the Sydney Opera House, Harbour Bridge, CBD and beautiful harbour. Freshness and seasonality infuse everything they do, from spritzy cocktails and crisp pale ales to light and seasonal menu with a seafood focus."
-      "Opera Bar are also big believers in supporting local, so you’ll see that reflected in the menus - in fact, their still wine list is now 100 per cent Aussie.";
+      "Part after-hours arcade, part karaoke mecca, this neon-lit Surry Hills homage to the Japanese izakaya is 100% late-night fun. Load up on dumplings, char-grilled skewers, and sauce-laden okonomiyaki before trying your hand at Spider Man Pinball aided by a few crispy-cold whisky highballs. After you’ve had your flipper fill, keep the party going by toting your sake bombs into one of the colorfully painted (and free) karaoke booths for 80 minutes of nonstop “Don’t Stop Believing” action. What could go wrong?";
   static const String text2 =
-      "The edgy vibe of Newtown extends into its small bars, cafes and craft breweries. You’ll find an assortment of restaurants and cafes along King Street, Enmore Road and Australia Street. Book a table at Continental Deli Bar Bistro, Ante, Golden Lotus, Odd Culture, Bella Brutta and Cafe Paci in Newtown."
-      "In neighbouring Enmore, head to Bar Louise for Spanish share plates, Colombo Social for Sri Lankan roti tacos and lassi cocktails, Cairo Takeaway for Egyptian street food, Little Lagos for Nigerian plates, Osteria di Russo and Russo for Italian in an intimate, candlelit setting, and Queen Chow for Chinese pub food. In Stanmore, the tiny, seven-table Sixpenny is one of the best finds in the city.";
+      "This bi-level palace to all things LGBTQ+ has been a community staple since 1983, even scoring some very memorable screen time in the Australian cult classic Priscilla, Queen of the Desert nearly 30 years ago. And while Guy Pearce might not be around as much these days, not much else has changed. Downstairs lurks the dance floor, with its grinding bodies, slick DJs, and disco ball overhang, while the more low-key and effortlessly handsome upstairs bar and dining area hosts regular drag performances, trivia, and bingo nights. The sleeper hit here is the Imperial Rooftop, a breezy escape where Sunday afternoon crowds vibe over spritzes and slices backed by the chillest live DJs.";
 
   static const String text3 =
-      'The Ivy Bar and the Patio are on the first level of the fabulous inner-city Ivy venue. This purpose-built bar is cool with intimate corners and room to dance. On the same level is Mad Cow "a New York-style grill" with big booths, ornate birdcages and a yellow-and-white colour scheme.'
-      'This is one of Sydney’s most stylish spots to drink a cocktail. The centrepiece is the pool bar with its turquoise pool that glitters during the day with private cabanas or comfy lounges for reclining. Maybe take a seat on the little concrete island under a big yellow beach umbrella. Otherwise, prop up the bar and drink some great cocktails such as the Spaside Margarita or a Mojito Royale.';
+      'What happens when you stuff hundreds of bottles of top of the line agave spirits, a handful of super passionate booze experts, and a whole lot of margarita-crazed Aussies into an alley bar the size of a large SUV? This unlikely CBD charmer, that’s what. Since debuting in March of 2019, the little mezcal bar that could has really hit its stride, coming in at number 41 on this year’s World’s 50 Best Bars list and wooing everyone who manages to step through its modest door with delicious cocktails, an up-for-anything atmosphere, and a bar staff who really know their spirits. Come early, come often, and don’t be afraid to ask for something special to sip on.';
 
   static const adventureTexts = [text1, text2, text3];
-  static const adventureImages = ["c8.jpeg", "Newtown.webp", "c09.jpeg"];
-  static const adventureTitles = ["Opera Bar", "Bars in Newtown", "Ivy Bar"];
+  static const adventureImages = ["crop.webp", "crop1.webp", "crop2.webp"];
+  static const adventureTitles = [
+    "Goros",
+    "The Imperial Erskineville",
+    "The Abercrombie"
+  ];
 }

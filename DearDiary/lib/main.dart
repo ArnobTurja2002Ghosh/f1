@@ -71,6 +71,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final CarController carController = CarController();
+  String dropdownValue = '';
   void _incrementCounter() {
     setState(() {
       // This call to setState tells the Flutter framework that something has
@@ -89,8 +90,9 @@ class _MyHomePageState extends State<MyHomePage> {
     // The Flutter framework has been optimized to make rerunning build methods
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
-    var cars = carController.getAllCars();
-    cars.sort(
+    var cars1 = carController.getAllCars();
+
+    cars1.sort(
         (a, b) => DateTime.parse(b.date).compareTo(DateTime.parse(a.date)));
     List<Icon> _star(double count2) {
       return List.generate(
@@ -116,6 +118,11 @@ class _MyHomePageState extends State<MyHomePage> {
       "November",
       "December"
     ];
+    var cars = cars1.where((element) {
+      return monthsInAYear[DateTime.parse(element.date).month] ==
+              dropdownValue ||
+          dropdownValue == '';
+    }).toList();
     List<String> daysInAWeek = [
       '',
       'Monday',
@@ -152,58 +159,100 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
-      body: ListView.builder(
-        itemCount: cars.length,
-        itemBuilder: (context, index) {
-          print("inserting $index");
-          var car = cars[index];
-          return ListTile(
-            title: Column(children: () {
-              return [
-                if (index == 0)
-                  ElevatedButton(
-                    onPressed: () {
-                      DiaryPDFExporter.generatePDF(cars);
-                    },
-                    child: Text("Download as PDF"),
-                  ),
-                if (index == 0 ||
-                    DateTime.parse(car.date).month !=
-                        DateTime.parse(cars[index - 1].date).month)
-                  Text(
-                      '${monthsInAYear[DateTime.parse(car.date).month]} ${DateTime.parse(car.date).year}'),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Text(
-                        "${daysInAWeek[DateTime.parse(car.date).weekday]}, ${monthsInAYear[DateTime.parse(car.date).month]} ${DateTime.parse(car.date).day}"),
-                    Row(children: _star(car.rate)),
-                    IconButton(
-                      icon: Icon(Icons.delete),
-                      onPressed: () {
-                        for (int i = 0;
-                            i < carController.getAllCars().length;
-                            i++) {
-                          if (carController.getAllCars()[i] == car) {
-                            print(i);
-                            setState(() {
-                              carController.deleteCar(i);
-                            });
+      body: Column(
+        children: [
+          DropdownButton<String>(
+            items: monthsInAYear.map((String value) {
+              return DropdownMenuItem<String>(
+                value: value,
+                child: Text(value),
+              );
+            }).toList(),
+            onChanged: (String? value) {
+              // This is called when the user selects an item.
+              setState(() {
+                dropdownValue = value!;
+              });
+            },
+            value: dropdownValue,
+          ),
+          Expanded(
+            child: ListView.builder(
+              itemCount: cars.length,
+              itemBuilder: (context, index) {
+                print("inserting $index");
+                var car = cars[index];
+                return ListTile(
+                  title: Column(children: () {
+                    return [
+                      if (index == 0) ...[
+                        ElevatedButton(
+                          onPressed: () {
+                            DiaryPDFExporter.generatePDF(cars);
+                          },
+                          child: Text("Download as PDF"),
+                        ),
+                        Text(
+                            '${monthsInAYear[DateTime.parse(car.date).month]} ${DateTime.parse(car.date).year}'),
+                      ] else if (DateTime.parse(car.date).month !=
+                          DateTime.parse(cars[index - 1].date).month)
+                        Text(
+                            '${monthsInAYear[DateTime.parse(car.date).month]} ${DateTime.parse(car.date).year}'),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Text(
+                              "${daysInAWeek[DateTime.parse(car.date).weekday]}, ${monthsInAYear[DateTime.parse(car.date).month]} ${DateTime.parse(car.date).day}"),
+                          Row(children: _star(car.rate)),
+                          IconButton(
+                            icon: Icon(Icons.delete),
+                            onPressed: () {
+                              for (int i = 0;
+                                  i < carController.getAllCars().length;
+                                  i++) {
+                                if (carController.getAllCars()[i] == car) {
+                                  print(i);
+                                  setState(() {
+                                    carController.deleteCar(i);
+                                  });
+                                }
+                              }
+                            },
+                          ),
+                        ],
+                      ),
+                      InkWell(
+                        onLongPress: () {
+                          print("zor se dabayaaaa");
+                          for (int i = 0;
+                              i < carController.getAllCars().length;
+                              i++) {
+                            if (carController.getAllCars()[i] == car) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => EntryView(
+                                      replacingIndex: i,
+                                    ),
+                                  )).then((val) {
+                                setState(() {});
+                              });
+                            }
                           }
-                        }
-                      },
-                    ),
-                  ],
-                ),
-                Align(
-                  alignment: Alignment.topLeft,
-                  child: Text("${car.description}"),
-                )
-              ];
-            }()),
-          );
-          //trailing: Row(mainAxisSize: MainAxisSize.min));
-        },
+                        },
+                        child: Align(
+                          alignment: Alignment.topLeft,
+                          child: Text(car.description),
+                        ),
+                      )
+                    ];
+                  }()),
+                );
+                //trailing: Row(mainAxisSize: MainAxisSize.min));
+              },
+            ),
+          ),
+        ],
       ),
       // Center(
       //   // Center is a layout widget. It takes a single child and positions it
@@ -318,7 +367,8 @@ class DiaryPDFExporter {
 }
 
 class EntryView extends StatefulWidget {
-  const EntryView({super.key});
+  int? replacingIndex;
+  EntryView({super.key, this.replacingIndex});
 
   @override
   State<EntryView> createState() => _EntryViewState();
@@ -329,6 +379,18 @@ class _EntryViewState extends State<EntryView> {
   final TextEditingController _dateController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
   final CarController carController = CarController();
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.replacingIndex != null) {
+      var car1 = carController.getAllCars()[widget.replacingIndex!];
+      _dateController.text = car1.date;
+      _descriptionController.text = car1.description;
+      _currentSliderValue = car1.rate;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -396,6 +458,21 @@ class _EntryViewState extends State<EntryView> {
                   setState(() {
                     _descriptionController.text = "null description";
                   });
+                } else if (carController
+                        .getAllCars()
+                        .any((person) => person.date == car.date) &&
+                    widget.replacingIndex == null) {
+                  SnackBar snackBar = SnackBar(
+                    content:
+                        const Text('An entry already exists for this date'),
+                  );
+
+                  // Find the ScaffoldMessenger in the widget tree
+                  // and use it to show a SnackBar.
+                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                } else if (widget.replacingIndex != null) {
+                  carController.updateCar(widget.replacingIndex!, car);
+                  Navigator.pop(context);
                 } else {
                   setState(() {
                     carController.addCar(car);
